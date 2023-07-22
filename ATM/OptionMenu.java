@@ -47,7 +47,8 @@ public class OptionMenu {
 				System.out.println("\nSelect the account you want to access: ");
 				System.out.println(" Type 1 - Checking Account");
 				System.out.println(" Type 2 - Savings Account");
-				System.out.println(" Type 3 - Exit");
+				System.out.println(" Type 3 - View Statements");
+				System.out.println(" Type 4 - Exit");
 				System.out.print("\nChoice: ");
 
 				int selection = menuInput.nextInt();
@@ -59,7 +60,10 @@ public class OptionMenu {
 				case 2:
 					getSaving(acc);
 					break;
-				case 3:
+					case 3:
+					showStatements(acc);
+					break;
+				case 4:
 					end = true;
 					break;
 				default:
@@ -70,6 +74,47 @@ public class OptionMenu {
 				menuInput.next();
 			}
 		}
+	}
+
+	public void showStatements(Account acc) {
+		boolean end = false;
+		while (!end) {
+			try {
+				System.out.println("\nSelect the account you want to access: ");
+				System.out.println("Type 1 - View Checking Statements");
+				System.out.println("Type 2 - View Saving Statements");
+				System.out.println("Type 3 - View Account Statements");
+				System.out.println("Type 4 - Exit");
+				System.out.print("\nChoice: ");
+
+				int selection = menuInput.nextInt();
+
+				switch (selection) {
+					case 1:
+						System.out.println("\nCustomer Number: " + acc.getCustomerNumber());
+						System.out.println("\nChecking Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
+						break;
+					case 2:
+						System.out.println("\nCustomer Number: " + acc.getCustomerNumber());
+						System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
+						break;
+					case 3:
+						System.out.println("\nCustomer Number: " + acc.getCustomerNumber());
+						System.out.println("\nChecking Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
+						System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
+						break;
+					case 4:
+						end = true;
+						break;
+					default:
+						System.out.println("\nInvalid Choice.");
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("\nInvalid Choice.");
+				menuInput.next();
+			}
+		}
+
 	}
 
 	public void getChecking(Account acc) {
@@ -96,7 +141,6 @@ public class OptionMenu {
 				case 3:
 					acc.getCheckingDepositInput();
 					break;
-
 				case 4:
 					acc.getTransferInput("Checking");
 					break;
